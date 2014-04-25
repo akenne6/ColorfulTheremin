@@ -70,6 +70,16 @@ public class Main extends Application {
         circle.setLayoutY(circle.getRadius());
         root.getChildren().add(circle);
         final Scene scene = new Scene(root, 1300, 800);
+        /*
+        //Greens
+        Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
+                new LinearGradient(0f, 0f, 1f, 1f, true, CycleMethod.NO_CYCLE, new Stop[]{
+                        new Stop(0, Color.web("#00E645")), // bright green, top left
+                        new Stop(0.33, Color.web("#00A130")), // regular green
+                        new Stop(0.66, Color.web("#006600")), // dark green
+                        new Stop(1, Color.web("#003300")),})); // forest green, lower right
+        */
+
         Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
                 new LinearGradient(0f, 1f, 1f, 0f, true, CycleMethod.NO_CYCLE, new Stop[]{
                         new Stop(0, Color.web("#f8bd55")),
@@ -80,6 +90,7 @@ public class Main extends Application {
                         new Stop(0.71, Color.web("#ed5fc2")),
                         new Stop(0.85, Color.web("#ef504c")),
                         new Stop(1, Color.web("#f2660f")),}));
+
         colors.widthProperty().bind(scene.widthProperty());
         colors.heightProperty().bind(scene.heightProperty());
         Group circles = new Group();
@@ -90,13 +101,15 @@ public class Main extends Application {
             circle.setStrokeWidth(4);
             circles.getChildren().add(circle);
         }
+
         Group blendModeGroup =
                 new Group(new Group(new Rectangle(scene.getWidth(), scene.getHeight(),
-                        Color.BLACK), circle, circles), colors);
+                        Color.WHITE), circle, circles), colors);
         colors.setBlendMode(BlendMode.OVERLAY);
         root.getChildren().add(blendModeGroup);
         circle.setEffect(new BoxBlur(10, 10, 3));
         circles.setEffect(new BoxBlur(10, 10, 3));
+
         Timeline timeline = new Timeline();
 
 
