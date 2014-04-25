@@ -38,7 +38,7 @@ import static java.lang.Math.random;
 
 /* Created by Alex, Modified by Sarah */
 
-public class Main extends Application {
+public class MainBasic extends Application {
     public static Instrument[] instruments;
 
     private SimpleLeapListener listener = new SimpleLeapListener();
