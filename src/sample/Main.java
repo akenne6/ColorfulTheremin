@@ -104,7 +104,7 @@ public class Main extends Application {
 
         Group blendModeGroup =
                 new Group(new Group(new Rectangle(scene.getWidth(), scene.getHeight(),
-                        Color.WHITE), circle, circles), colors);
+                        Color.BLACK), circle, circles), colors);
         colors.setBlendMode(BlendMode.OVERLAY);
         root.getChildren().add(blendModeGroup);
         circle.setEffect(new BoxBlur(10, 10, 3));
