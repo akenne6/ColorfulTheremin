@@ -97,7 +97,7 @@ public class MainBasic extends Application {
         colors.heightProperty().bind(scene.heightProperty());
 
         Group lines = new Group();
-        for (int i = 0; i < 3000; i+=50) {
+        for (int i = 0; i < scene.getHeight(); i+=50) {
             Line line = new Line(0, 50 + i, scene.getWidth(), 50 + i);
             line.setStrokeWidth(3);
             line.setStroke(Color.WHITE);
