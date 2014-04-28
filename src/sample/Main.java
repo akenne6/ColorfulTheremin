@@ -69,7 +69,7 @@ public class Main extends Application {
         circle.setLayoutX(circle.getRadius());
         circle.setLayoutY(circle.getRadius());
         root.getChildren().add(circle);
-        final Scene scene = new Scene(root, 1300, 800);
+        final Scene scene = new Scene(root, 1354, 762);
         /*
         //Greens
         Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
@@ -117,10 +117,10 @@ public class Main extends Application {
             timeline.getKeyFrames().addAll(
                     new KeyFrame(Duration.ZERO, // set start position at 0
                             new KeyValue(circle.translateXProperty(), random() * 1300),
-                            new KeyValue(circle.translateYProperty(), random() * 800)),
+                            new KeyValue(circle.translateYProperty(), random() * 762)),
                     new KeyFrame(new Duration(40000), // set end position at 40s
                             new KeyValue(circle.translateXProperty(), random() * 1300),
-                            new KeyValue(circle.translateYProperty(), random() * 800)));
+                            new KeyValue(circle.translateYProperty(), random() * 762)));
         }
         listener.pointProperty().addListener(new ChangeListener<Point2D>(){
             @Override
@@ -136,14 +136,32 @@ public class Main extends Application {
                             circle.setTranslateX(dx);
                             circle.setTranslateY(dy);
                         }
-                        channels[0].noteOn((int)(t1.getY()), (int)(t1.getX()));
+                        int x, y;
+                        if (dx < 0)
+                            x = 0;
+                        else if (dx > 1354)
+                            x = 271;
+                        else
+                        {
+                            x = (int)dx/5;
+                        }
+                        if (dy < 0)
+                            y = 127;
+                        else if (dy > 762)
+                            y = 0;
+                        else
+                        {
+                            y = 127 - (int)dy/6;
+                        }
+
+                        channels[0].noteOn(y, x);
                         try {
                             Thread.sleep(10);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        System.out.println("x: " + t1.getX() + " y: " + t1.getY());
-                        Line line = new Line(0,10,0,10);
+                        System.out.println("X: " + x + " Y: " + y);
+
                     }
                 });
             }

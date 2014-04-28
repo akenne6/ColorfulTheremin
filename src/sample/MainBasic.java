@@ -71,16 +71,7 @@ public class MainBasic extends Application {
         circle.setLayoutX(circle.getRadius());
         circle.setLayoutY(circle.getRadius());
         root.getChildren().add(circle);
-        final Scene scene = new Scene(root, 1300, 800);
-        /*
-        //Greens
-        Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
-                new LinearGradient(0f, 0f, 1f, 1f, true, CycleMethod.NO_CYCLE, new Stop[]{
-                        new Stop(0, Color.web("#00E645")), // bright green, top left
-                        new Stop(0.33, Color.web("#00A130")), // regular green
-                        new Stop(0.66, Color.web("#006600")), // dark green
-                        new Stop(1, Color.web("#003300")),})); // forest green, lower right
-        */
+        final Scene scene = new Scene(root, 1354, 762);
 
         Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
                 new LinearGradient(0f, 1f, 1f, 0f, true, CycleMethod.NO_CYCLE, new Stop[]{
@@ -97,8 +88,8 @@ public class MainBasic extends Application {
         colors.heightProperty().bind(scene.heightProperty());
 
         Group lines = new Group();
-        for (int i = 0; i < scene.getHeight(); i+=50) {
-            Line line = new Line(0, 50 + i, scene.getWidth(), 50 + i);
+        for (int i = 72; i < scene.getHeight(); i+=72) {
+            Line line = new Line(0, i, scene.getWidth(), i);
             line.setStrokeWidth(3);
             line.setStroke(Color.WHITE);
             lines.getChildren().add(line);
@@ -124,7 +115,28 @@ public class MainBasic extends Application {
                             circle.setTranslateX(dx);
                             circle.setTranslateY(dy);
                         }
-                        channels[0].noteOn((int)(t1.getY()), (int)(t1.getX()));
+                        //channels[0].noteOn((int)(t1.getY()), (int)(t1.getX()));
+                        //Y is 762 px high (6 * 127), so every 6 px is 1 midi note
+                        int x, y;
+                        if (dx < 0)
+                            x = 0;
+                        else if (dx > 1354)
+                            x = 271;
+                        else
+                        {
+                            x = (int)dx/5;
+                        }
+                        if (dy < 0)
+                            y = 127;
+                        else if (dy > 762)
+                            y = 0;
+                        else
+                        {
+                            y = 127 - (int)dy/6;
+                        }
+
+                        channels[0].noteOn(y, x);
+
                         try {
                             Thread.sleep(10);
                         } catch (InterruptedException e) {
