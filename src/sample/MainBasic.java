@@ -70,8 +70,8 @@ public class MainBasic extends Application {
         leapController.addListener(listener);
         circle.setLayoutX(circle.getRadius());
         circle.setLayoutY(circle.getRadius());
-        root.getChildren().add(circle);
-        final Scene scene = new Scene(root, 1354, 762);
+       // root.getChildren().add(circle);
+        final Scene scene = new Scene(root, 1277, 720);
 
         Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
                 new LinearGradient(0f, 1f, 1f, 0f, true, CycleMethod.NO_CYCLE, new Stop[]{
@@ -88,16 +88,17 @@ public class MainBasic extends Application {
         colors.heightProperty().bind(scene.heightProperty());
 
         Group lines = new Group();
-        for (int i = 72; i < scene.getHeight(); i+=72) {
+        for (int i = 60; i < scene.getHeight(); i+=180) {
             Line line = new Line(0, i, scene.getWidth(), i);
             line.setStrokeWidth(3);
             line.setStroke(Color.WHITE);
             lines.getChildren().add(line);
         }
+        lines.setEffect(new BoxBlur(10,10,3));
 
         Group blendModeGroup =
                 new Group(new Group(new Rectangle(scene.getWidth(), scene.getHeight(),
-                        Color.BLACK), circle, lines), colors);
+                        Color.BLACK), lines, circle), colors);
         colors.setBlendMode(BlendMode.OVERLAY);
         root.getChildren().add(blendModeGroup);
         circle.setEffect(new BoxBlur(10, 10, 3));
@@ -116,33 +117,33 @@ public class MainBasic extends Application {
                             circle.setTranslateY(dy);
                         }
                         //channels[0].noteOn((int)(t1.getY()), (int)(t1.getX()));
-                        //Y is 762 px high (6 * 127), so every 6 px is 1 midi note
+                        //Y is 720 px high (15 * 48 --> 48 notes between 55 and 103 Midi notes), so every 15 px is 1 midi note
                         int x, y;
                         if (dx < 0)
                             x = 0;
-                        else if (dx > 1354)
-                            x = 271;
+                        else if (dx > 1277)
+                            x = 80;
                         else
                         {
-                            x = (int)dx/5;
+                            x = (int)dx/16;
                         }
                         if (dy < 0)
-                            y = 127;
-                        else if (dy > 762)
-                            y = 0;
+                            y = 103;
+                        else if (dy > 720)
+                            y = 55;
                         else
                         {
-                            y = 127 - (int)dy/6;
+                            y = 103 - (int)dy/15;
                         }
 
                         channels[0].noteOn(y, x);
 
                         try {
-                            Thread.sleep(10);
+                            Thread.sleep(5);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        System.out.println("x: " + t1.getX() + " y: " + t1.getY());
+                        System.out.println("x: " + x + " y: " + y);
 
                     }
                 });

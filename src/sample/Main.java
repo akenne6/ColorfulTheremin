@@ -139,15 +139,15 @@ public class Main extends Application {
                         int x, y;
                         if (dx < 0)
                             x = 0;
-                        else if (dx > 1354)
-                            x = 271;
+                        else if (dx > 1277)
+                            x = 80;
                         else
                         {
-                            x = (int)dx/5;
+                            x = (int)dx/16;
                         }
                         if (dy < 0)
                             y = 127;
-                        else if (dy > 762)
+                        else if (dy > 720)
                             y = 0;
                         else
                         {
