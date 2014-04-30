@@ -27,15 +27,14 @@ The second half of the project was mainly focused on adding visual effects to th
 * To get the project to work on Eclipse follow this tutorial: [How to use in Eclipse](https://docs.google.com/document/d/1FQbyOAb0PIhPSyC9T-FsVGxfBntA_3y8A2522hvCTz8/edit?usp=sharing")
 
 ##### System Requirements
+
 * This program will run on any operating system supported by Leap Motion.
 * You must install Leap Motion's interface in order to download the application.
 
 #### Credits and Copyright
+
 The authors of this project are Jessica de la Cruz, Ben Galatzer-Levy, Alex Kenney, Sarah Murray, and Grant Stewart. We created this project for our Human Computer Interaction (COMP 388/441) course at Loyola University Chicago in Spring 2014 under the guidance of Professor Mark Albert.
 This is a continuation of the project started by Hugh Adam, Heba Bubakr, Sarah Murray, Grant Stewart, and Ian Logan. There original repository for Version 1.0 can be found here:  [Theremin](https://github.com/sarahelizabeth/theremin)
-
-The authors of this project are Hugh Adam, Heba Bubakr, Sarah Murray, Grant Stewart, and Ian Logan.  
-We created this project for our Human Computer Interaction (COMP 388/441) course at Loyola University Chicago in Spring 2014 under the guidance of Professor Mark Albert.
 
 ###### Contact
 Email: alexjkenney@gmail.com
