@@ -60,7 +60,8 @@ public class Main extends Application {
             orchestra = synthesizer.getAvailableInstruments();
             channels = synthesizer.getChannels();
             instruments = synthesizer.getDefaultSoundbank().getInstruments();
-            channels[0].programChange(instruments[94].getPatch().getProgram());
+            channels[0].programChange(instruments[68].getPatch().getProgram());
+            channels[1].programChange(instruments[79].getPatch().getProgram());
         }
         catch (Exception e) {};
 
@@ -155,6 +156,7 @@ public class Main extends Application {
                         }
 
                         channels[0].noteOn(y, x);
+                        channels[1].noteOn(y, x);
                         try {
                             Thread.sleep(10);
                         } catch (InterruptedException e) {

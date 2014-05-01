@@ -27,10 +27,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 
-import javax.sound.midi.Instrument;
-import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Synthesizer;
+import javax.sound.midi.*;
+
 import javafx.*;
 import javafx.util.Duration;
 
@@ -49,8 +47,10 @@ public class MainBasic extends Application {
     public Instrument[] orchestra;
     public MidiChannel[] channels;
 
-    @Override
+
+
     public void start(Stage primaryStage) {
+
         circle.setStrokeType(StrokeType.OUTSIDE);
         circle.setStroke(Color.web("white", 0.15));
         circle.setStrokeWidth(4);
@@ -62,15 +62,18 @@ public class MainBasic extends Application {
             orchestra = synthesizer.getAvailableInstruments();
             channels = synthesizer.getChannels();
             instruments = synthesizer.getDefaultSoundbank().getInstruments();
-            channels[0].programChange(instruments[94].getPatch().getProgram());
+            channels[0].programChange(instruments[64].getPatch().getProgram());
+            channels[1].programChange(instruments[70].getPatch().getProgram());
+
+
         }
         catch (Exception e) {};
+
 
 
         leapController.addListener(listener);
         circle.setLayoutX(circle.getRadius());
         circle.setLayoutY(circle.getRadius());
-       // root.getChildren().add(circle);
         final Scene scene = new Scene(root, 1277, 720);
 
         Rectangle colors = new Rectangle(scene.getWidth(), scene.getHeight(),
@@ -88,7 +91,7 @@ public class MainBasic extends Application {
         colors.heightProperty().bind(scene.heightProperty());
 
         Group lines = new Group();
-        for (int i = 60; i < scene.getHeight(); i+=180) {
+        for (int i = 660; i > 0; i-=180) {
             Line line = new Line(0, i, scene.getWidth(), i);
             line.setStrokeWidth(3);
             line.setStroke(Color.WHITE);
@@ -116,8 +119,6 @@ public class MainBasic extends Application {
                             circle.setTranslateX(dx);
                             circle.setTranslateY(dy);
                         }
-                        //channels[0].noteOn((int)(t1.getY()), (int)(t1.getX()));
-                        //Y is 720 px high (15 * 48 --> 48 notes between 55 and 103 Midi notes), so every 15 px is 1 midi note
                         int x, y;
                         if (dx < 0)
                             x = 0;
@@ -128,22 +129,29 @@ public class MainBasic extends Application {
                             x = (int)dx/16;
                         }
                         if (dy < 0)
-                            y = 103;
+                            y = 91;
                         else if (dy > 720)
-                            y = 55;
+                            y = 43;
                         else
                         {
-                            y = 103 - (int)dy/15;
+                            y = 91 - (int)dy/15;
                         }
+                        //Mono creates a more "Theremin" like sound
+                        channels[1].setMono(true);
+                        channels[0].setMono(true);
 
+                        //Y is 720 px high (15 * 48 --> 48 notes between 55 and 103 Midi notes), so every 15 px is 1 midi note
+                        //Plays two notes on top of one another
+                        channels[1].noteOn(y, x);
                         channels[0].noteOn(y, x);
 
                         try {
-                            Thread.sleep(5);
+                            Thread.sleep(10);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         System.out.println("x: " + x + " y: " + y);
+
 
                     }
                 });
